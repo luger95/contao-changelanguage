@@ -340,7 +340,7 @@ class ModuleChangelanguage extends Module
 			(
 				'isActive'	=> $active,
 				'class'		=> 'lang-' . $arrRootPage['language'] . ($blnDirectFallback ? '' : ' nofallback') . ($c == 0 ? ' first' : '') . ($c == $count-1 ? ' last' : ''),
-				'link'		=> $this->getLabel($arrRootPage['language']),
+				'link'		=> $this->getLabel($arrRootPage),
 				'subitems'	=> '',
 				'href'		=> ($domain . $href),
 				'pageTitle' => strip_tags($pageTitle),
@@ -396,14 +396,14 @@ class ModuleChangelanguage extends Module
 	}
 
 
-	private function getLabel($strLanguage)
+	private function getLabel($arrPage)
 	{
-		if ($this->customLanguage && strlen($this->customLanguageText[$strLanguage]))
+		if ($this->customLanguage && strlen($this->customLanguageText[$arrPage['language']]))
 		{
-			return $this->replaceInsertTags($this->customLanguageText[$strLanguage]);
+			return $this->replaceInsertTags($this->customLanguageText[$arrPage['language']]);
 		}
 
-		return strtoupper($strLanguage);
+		return strtoupper($arrPage['language']);
 	}
 }
 
