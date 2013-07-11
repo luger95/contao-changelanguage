@@ -349,6 +349,7 @@ class ModuleChangelanguage extends Module
 				'nofollow'	=> false,
 				'target'	=> $target . ' hreflang="' . $arrRootPage['language'] . '"',
 				'language'	=> $arrRootPage['language'],
+				'rootId'    => $arrRootPage['id'],
 			);
 
 			// Inject <link rel=""> for the alternate language
@@ -390,7 +391,15 @@ class ModuleChangelanguage extends Module
 		$arrCustom = array_keys($this->customLanguageText);
 
 		$key1 = array_search($a['language'], $arrCustom);
-		$key2 = array_search($b['language'], $arrCustom);
+		$key2 = array_search($b['language'], $arrCustom) || array_search($b['rootId'], $arrCustom);
+		
+		if ($key1 === false) {
+    		$key1 = array_search($a['rootId'], $arrCustom);
+		}
+		
+		if ($key2 === false) {
+    		$key2 = array_search($b['rootId'], $arrCustom);
+		}
 
 	    return ($key1 < $key2) ? -1 : 1;
 	}
