@@ -388,7 +388,11 @@ class ModuleChangelanguage extends Module
 	 */
 	private function orderByCustom($a, $b)
 	{
-		$arrCustom = array_keys($this->customLanguageText);
+	    static $arrCustom;
+	    
+	    if (null === $arrCustom) {
+    		$arrCustom = array_keys($this->customLanguageText);
+        }
 
 		$key1 = array_search($a['language'], $arrCustom);
 		$key2 = array_search($b['language'], $arrCustom) || array_search($b['rootId'], $arrCustom);
