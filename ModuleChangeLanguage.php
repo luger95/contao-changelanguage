@@ -411,9 +411,13 @@ class ModuleChangelanguage extends Module
 
 	private function getLabel($arrPage)
 	{
-		if ($this->customLanguage && strlen($this->customLanguageText[$arrPage['language']]))
+		if ($this->customLanguage)
 		{
-			return $this->replaceInsertTags($this->customLanguageText[$arrPage['language']]);
+		    $strLabel = $this->customLanguageText[$arrPage['language']] || $this->customLanguageText[$arrPage['id']];
+		    
+		    if ($strLabel != '') {
+    			return $this->replaceInsertTags($strLabel);
+            }
 		}
 
 		return strtoupper($arrPage['language']);
